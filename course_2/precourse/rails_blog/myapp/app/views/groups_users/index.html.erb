@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Groups Users</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @groups_users.each do |groups_user| %>
+      <tr>
+        <td><%= link_to 'Show', groups_user %></td>
+        <td><%= link_to 'Edit', edit_groups_user_path(groups_user) %></td>
+        <td><%= link_to 'Destroy', groups_user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Groups user', new_groups_user_path %>

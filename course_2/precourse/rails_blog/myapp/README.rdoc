@@ -1,0 +1,97 @@
+Create a Rails Project
+reference: http://guides.rubyonrails.org/getting_started.html
+
+0. System check: Ruby version 1.9.3+ and Rails version 4.0.0+
+
+1. Create a new Rails project
+
+```$ rails new myapp```
+
+2. Access it by starting rails server
+
+```$ rails server```
+
+In URL type ```localhost:3000```
+
+3. Generate a scaffold (full set of model, database migration*, controller, views, and a test suite for each)
+
+```$ rail generate scaffold User name:string email:string```
+
+```$ rake db:create```
+
+```$ rake db:migrate```
+
+```$ rails server```
+
+*migrations are ways to alter the database schema
+
+navigate to http://localhost:3000/users
+
+4. Set up a 1:M association for user:posts
+create a Post model with a 'posts' table
+
+```$ rails generate scaffold Post user:string title:string article:text```
+
+```rake db:migate```
+
+specify user as the foreign key in the posts database layer
+
+use has_many in the user model layer (plural)
+
+use belongs_to in the post model layer (singular)
+
+5. Set up M:M association for group:user
+
+```$ rails generate scaffold Group group_name:string, user:string color:string```
+
+```rake db:migate```
+
+create the connecting table
+
+```$ rails generate scaffold UserGroup```
+
+```rake db:migate```
+
+has_and_belongs_to_many creates direct many-to-many connection with another model
+
+add has_and_belongs_to_many in both the user and the group model layers (plural)
+
+modify the groups_users db to look like this:
+
+```
+class CreateGroupsUsers < ActiveRecord::Migration
+  def change
+    create_table :user_groups, id: false do |t|
+      t.belongs_to :user, index: true
+      t.belongs_to :group, index: true
+      t.timestamps null: false
+    end
+  end
+end
+```
+
+error: try to delete a user to see if post belonging to him disappears too
+
+$ rails generate migration AddUserIdToPosts
+
+and made the following changes
+
+class AddUserIdToPosts < ActiveRecord::Migration
+  def change
+    add_column :posts, :user_id, :integer
+  end
+end
+
+$ rails generate migration AddUserIdToGroupsUsers
+
+add same as above, migrate
+
+$ rails generate migration AddGroupIdToGroupsUsers
+
+class AddUserIdToPosts < ActiveRecord::Migration
+  def change
+    add_column :groups_users, :group_id, :integer
+  end
+end
+
+migrate

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  player_name: MyString
+  instrument: MyString
+  years_of_playing: 1
+
+two:
+  player_name: MyString
+  instrument: MyString
+  years_of_playing: 1

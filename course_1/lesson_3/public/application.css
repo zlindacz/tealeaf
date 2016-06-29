@@ -1,0 +1,35 @@
+/*html {
+  background-color: #347C17;
+}*/
+
+img {
+  height: 170px;
+  width: 120px;
+}
+
+.center {
+  margin: auto;
+  width: 50%;
+}
+
+.float_left {
+  float: left;
+  margin-right: 10px;
+}
+
+.bet_again {
+  float: left;
+  margin-right: 10px;
+}
+
+.clear {
+  clear: both;
+}
+
+.cards {
+  float: left;
+  margin-right: 10px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #BCC6CC;
+}

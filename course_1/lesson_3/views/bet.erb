@@ -1,0 +1,9 @@
+<h3><%= "#{session[:player_name]} has #{session[:chips]} chips." %></h3>
+
+<div>
+  <form action="/bet" method="post">
+    <input type="text" placeholder="Number of chips" name="wager">
+    <br>
+    <button type="submit" class="btn btn-primary">Bet</button>
+  </form>
+</div>

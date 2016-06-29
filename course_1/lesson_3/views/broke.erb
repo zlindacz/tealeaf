@@ -1,0 +1,8 @@
+<h3><%= "No more chips, #{session[:player_name]}? No worries, here's another #{STARTING_CHIPS}!" %></h3>
+
+<div>
+  <form action="/new_game" method="post">
+    <button type="submit" class="btn btn-primary">Another game</button>
+  </form>
+  <a href="https://en.wikipedia.org/wiki/Blackjack" class="btn">Nah, I'm beat</a>
+</div>

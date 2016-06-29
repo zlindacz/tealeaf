@@ -1,0 +1,79 @@
+<div id='game'>
+  <%if @lose_msg %>
+      <div class="alert alert-error"><%= @lose_msg %></div>
+    <% end %>
+    <%if @win_msg %>
+      <div class="alert alert-success"><%= @win_msg %></div>
+    <% end %>
+    <%if @tie_msg %>
+      <div class="alert alert-info"><%= @tie_msg %></div>
+  <% end %>
+
+  <h2>Welcome to Blackjack!</h2>
+  <h5>Chips: <%= "#{session[:chips]}" %> Wager: <%= "#{session[:wager]}" %></h5>
+
+  <% if @winner %>
+    <div>
+      <form action="/bet" method="post" id='after_bet'>
+        <input id="bet_again" type="text" placeholder="Number of chips" name="wager"/>
+        <br>
+        <button class="btn btn-primary" type="submit">Bet</button>
+      </form>
+    </div>
+  <% end %>
+
+  <div class="well">  
+    <h4>Dealer's Hand</h4>
+    <div>
+      <% if session[:turn] == "#{session[:player_name]}" %>
+        <p class="cards"><%= "<img src='/images/cards/cover.jpg' />" %></p>
+        <p class="cards"><%= "#{display(session[:dealer_hand][1])}" %></p>
+        <br>
+        <div class="clear">
+          <% value = session[:dealer_hand][1][0] %>
+          <% if value == 'A' %>
+            <% value = '11' %>
+          <% elsif value.to_i == 0 %>
+            <% value = '10' %>
+          <% end %>
+          <strong><%= "Total: #{value}" %></strong>
+        </div>
+      <% else %>
+        <% session[:dealer_hand].each do |card| %>
+          <p class="cards"><%= "#{display(card)}" %></p>
+        <% end %>
+        <br>
+        <div class="clear">
+          <strong><%= "Total: #{total(session[:dealer_hand])}" %></strong>
+        </div>
+      <% end %>
+      <% if @show_dealer_move_btn %>
+          <form action="/game/dealer_turn" method="post" id="dealer_hit">
+            <input class="btn btn-primary float_left" type="submit" value="See Dealer's next card &rarr;"/>
+          </form>
+        <% end %>
+    </div>
+  </div>
+
+  <div class="well">
+    <h4><%= "#{session[:player_name]}'s Hand" %></h4>
+    <div>
+      <% session[:player_hand].each do |card| %>
+        <p class="cards"><%= "#{display(card)}" %></p>
+      <% end %>
+    </div>
+    <br>
+    <div class="clear">
+      <strong><%= "Total: #{total(session[:player_hand])}" %></strong>
+    </div>
+  </div>
+
+  <% if @hit_or_stand_btns %>
+    <form action="/game/player/hit" method="post" id="player_hit">
+      <button class="btn btn-success float_left" type="submit">Hit</button>
+    </form>
+    <form action="/game/player/stand" method="post" id="player_stand">
+      <button class="btn btn-warning float_left" type="submit">Stand</button>
+    </form>
+  <% end %>
+</div>
